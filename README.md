@@ -46,5 +46,11 @@ from process import download_and_upload
 download_and_upload(playlist_id="PLmR3bjwQNCDfW7DcheXqKe_99CbHBkkjt", tonie_name="My tonie")
 ```
 
+- finally, when all uploads are finished, you can sort the songs by alphabetical order:
+```python
+from tonies import sort_all_tonies
+sort_all_tonies()
+```
+
 ### TODO
 - [ ] Make a little pypi package

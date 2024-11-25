@@ -27,8 +27,6 @@ def upload_folder(folder, tonie_id):
 
     creative_tonies = api.get_all_creative_tonies()
 
-    print(f"Found {len(creative_tonies)} creative tonies")
-
     tonies_mapping = {tonie.id: tonie.name for tonie in creative_tonies}
 
     assert tonie_id in tonies_mapping, f"Tonie with ID {tonie_id} not found"
@@ -45,7 +43,8 @@ def upload_folder(folder, tonie_id):
     for i, item in tqdm(enumerate(songs.items()), total=len(songs)):
         title, video_url = item
         file = f"{output_dir}/{title}.mp3"
-        api.upload_file_to_tonie(tonie, file, title)
+        api.add_chapter_to_tonie(tonie, file, title)
+
     print("Upload complete...")
 
 def list_tonies():
@@ -62,5 +61,15 @@ def resolve_tonie_id(tonie_name):
             return tonie.id
     return None
 
+def sort_all_tonies():
+    api = get_tonie_api()
+    all_tonies = api.get_all_creative_tonies()
+    for tonie in all_tonies:
+        sort_list = tonie.chapters
+        sort_dict = {chapter.title: chapter for chapter in sort_list}
+        sort_list = [sort_dict[title] for title in sorted(sort_dict.keys())]
+        api.sort_chapter_of_tonie(tonie, sort_list)
+
 if __name__ == "__main__":
     list_tonies()
+    sort_all_tonies()
