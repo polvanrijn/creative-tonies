@@ -15,9 +15,18 @@ This little script allows parents to:
 2. `pip install -r requirements.txt`
 
 ### Usage
-- First put your Creative-Tonie on the charging station. 
-- Go to https://my.tonies.com/creative-tonies and click on the Creative-Tonie you want to upload songs to.
-- Rename the tonie to an intuitive name, e.g. "My tonie"
+- Put your Creative-Tonie on the Toniebox
+- Go to https://my.tonies.com/creative-tonies
+- Login or make an account if you haven't
+- Click on the Creative-Tonie you want to upload songs to and rename the Tonie to an intuitive name, e.g. "My tonie"
+- Create the file `.tonies` in your home directory (i.e. `~/.tonies`) with the following content:
+```
+[user]
+USERNAME = <your_email>
+PASSWORD = <your_password>
+```
+
+- Now you can use the low-level API to download and upload songs (this can be useful if you want to do some processing on the songs before uploading them, e.g. cropping the songs or adding a fade-in/fade-out effect):
 ```python
 from normalize import normalize_folder
 from tonies import upload_folder, resolve_tonie_id
@@ -40,13 +49,13 @@ normalize_folder(output_dir)
 upload_folder(output_dir, tonie_id)
 ```
 
-Or use the high-level API:
+- Or use the high-level API:
 ```python
 from process import download_and_upload
 download_and_upload(playlist_id="PLmR3bjwQNCDfW7DcheXqKe_99CbHBkkjt", tonie_name="My tonie")
 ```
 
-- finally, when all uploads are finished, you can sort the songs by alphabetical order:
+- Finally, when all uploads are finished, you can sort the songs by alphabetical order (note, this will only work once the uploaded files are uploaded). By default, the songs are NOT sorted by the order they were uploaded in:
 ```python
 from tonies import sort_all_tonies
 sort_all_tonies()
@@ -54,3 +63,9 @@ sort_all_tonies()
 
 ### TODO
 - [ ] Make a little pypi package
+
+### Contributing
+Feel free to open a PR if you want to contribute!
+
+### License
+MIT
