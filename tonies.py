@@ -43,7 +43,7 @@ def upload_folder(folder, tonie_id):
     for i, item in tqdm(enumerate(songs.items()), total=len(songs)):
         title, video_url = item
         file = f"{output_dir}/{title}.mp3"
-        api.add_chapter_to_tonie(tonie, file, title)
+        api.upload_file_to_tonie(tonie, file, title)
 
     print("Upload complete...")
 
